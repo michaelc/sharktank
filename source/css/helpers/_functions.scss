@@ -1,0 +1,7 @@
+/**
+ * Convert pixels to ems
+ * Note that this function overrides Bourbon's function of the same name
+ */
+@function em($px, $base: $base-font-size) {
+	@return ($px / $base) * 1em;
+}

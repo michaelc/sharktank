@@ -1,0 +1,12 @@
+%footer#footer{:role => "contentinfo"}
+	.wrap
+		.contact
+			%h1.footer-title Get in Touch
+			= partial "contact-list"
+
+		.follow
+			%h1.footer-title Follow Us
+			= partial "follow-list"
+
+		.copyright
+			%p Copyright &copy; #{Date.today.strftime("%Y") + " " + site_title}

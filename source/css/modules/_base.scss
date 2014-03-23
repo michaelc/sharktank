@@ -1,0 +1,143 @@
+/* =========================================================================
+	 @viewport
+	 ========================================================================= */
+
+@-ms-viewport {
+	width: device-width;
+	zoom: 1;
+	user-zoom: zoom;
+}
+
+@-o-viewport {
+	width: device-width;
+	zoom: 1;
+	user-zoom: zoom;
+}
+
+@viewport {
+	width: device-width;
+	zoom: 1;
+	user-zoom: zoom;
+}
+
+/* =========================================================================
+	 Bug fixes
+	 ========================================================================= */
+
+/**
+ * Not really a bug, per se
+ * http://maxvoltar.com/archive/-webkit-font-smoothing/
+ */
+html,
+input,
+button {
+	-webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================================
+	 Base styles
+	 ========================================================================= */
+
+/**
+ * Box-sizing
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+* {
+
+	&,
+	&:before,
+	&:after{
+		@include prefix(box-sizing, border-box, moz spec);
+	}
+}
+
+html {
+	font: #{($base-font-size / 16px) * 1em} / #{$line-height-ratio} $base-font-family;
+}
+
+body {
+	margin: 0;
+	background-color: $white;
+	color: $grey-darker;
+	//font-size: 85%; // This won't work as intended unless ALL font sizes are declared in percentages site-wide
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium-small) {
+		//font-size: 100%;
+	}
+}
+
+html,
+body {
+	min-height: 100%;
+	overflow-x: hidden;
+}
+
+main {
+	@extend %cf;
+	display: block;
+	padding-top: 0;
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium-small) {
+		@include rem(padding-top, 2);
+	}
+
+	section {
+		@include rem(padding-top padding-bottom, 2.5);
+
+		&:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+	}
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+}
+
+a {
+	text-decoration: underline;
+	color: $primary-color;
+	@include prefix(transition, all .3s);
+
+	&:hover,
+	&:focus {
+		background-color: $white-dark;
+	}
+
+	&:active {
+		color: $white;
+		background-color: $primary-color;
+		@include prefix(transition, all 0 !important); // Remove transition on click
+	}
+
+	img {
+		vertical-align: bottom; // Prevent extra mystery space beneath images
+	}
+}
+
+// Remove underline on heading links
+@for $i from 1 through 6 {
+	h#{$i} > a {
+		text-decoration: none;
+		border-bottom: none;
+	}
+}
+
+.screenreader {
+	@extend %visually-hidden;
+}
+
+/**
+ * Seriously? You're going to print a website? A *tech* website?
+ */
+@media print {
+	* {
+		display: none;
+	}
+}

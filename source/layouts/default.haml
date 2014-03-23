@@ -1,0 +1,54 @@
+!!! 5
+<!--[if IE 9]><html lang="en-gb" class="lt-ie10 no-js"><![endif]-->
+<!--[if gt IE 9]><!-->
+%html{:lang => "en-gb", :class => "no-js" }<>
+	<!--<![endif]-->
+	%head
+		%meta{:charset => "utf-8"}
+		%meta{:http => {:equiv => "X-UA-Compatible"}, :content => "IE=edge,chrome=1"}
+		%meta{:http => {:equiv => "cleartype"}, :content => "on"}
+		%meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+
+		%title= site_title + ": " + (current_page.data.title || site_subtitle)
+
+		%link{:rel => "canonical", :href => site_url + current_page.url}
+		%link{:rel => "alternate", :type => "application/rss+xml", :href => site_url + "/feed.xml"}
+
+		%link{:rel => "shortcut icon", :href => "/favicon.ico"}
+		%meta{:name => "msapplication-TileImage", :content => "/ms-tile-icon.png"}
+
+		:javascript
+			document.documentElement.className = document.documentElement.className.replace("no-js","js");
+
+		-#
+			Don't need modernizr yet, but this is where/how to include if/when we do
+			(obviously make sure you include the library in the appropriate folder).
+			Plus you can delete the javascript line immediately above
+		-#
+		=# javascript_include_tag "/#{js_dir}/lib/modernizr.custom.min.js"
+
+		= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic|Francois+One|Mouse+Memoirs"
+		= stylesheet_link_tag "styles", :media => "all"
+
+	%body{:class => page_classes}
+		= partial "header"
+
+		%main#content{:role => "main"}
+			= yield
+
+		= partial "footer"
+
+		-#
+			Do not combine these two bits in the same :javascript block - it won't
+			work and the libraries will be loaded twice
+		-#
+		:javascript
+			document.write('<script src=//' + ('__proto__' in {} ? 'cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto' : 'ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery') + '.min.js><\/script>')
+
+		:javascript
+			if ('__proto__' in {})
+				window.Zepto || document.write('<script src="#{js_dir}/lib/zepto-1.0.min.js"><\/script>')
+			else
+				window.jQuery || document.write('<script src="#{js_dir}/lib/jquery-1.10.2.min.js"><\/script>')
+
+		= javascript_include_tag "scripts"

@@ -1,0 +1,137 @@
+/**
+ * The "button" for the mobile nav
+ * <a id="mobile-nav-toggle"><span aria-hidden>
+ *
+ * Using icon font usage principles from:
+ * http://css-tricks.com/html-for-icon-font-usage/
+ */
+#mobile-nav-toggle {
+	@extend %unstyled-link;
+	display: block;
+	float: right;
+	color: $white;
+	@include rem(font-size, 2 * $base-font-size);
+	@include rem(padding-left, 1);
+
+	/**
+	 * Appoximate vertical alignment using padding and font-size
+	 * We use padding instead of margin b/c we want a large clickable area
+	 */
+	@include rem(padding-top padding-bottom, max(0, ($logo-height - 2 * $base-font-size) / 2) );
+
+	&:hover,
+	&:focus {
+		color: $white;
+	}
+
+	.no-js & {
+		display: none; // Hide the button altogether when js disabled
+	}
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($nav-breakpoint) {
+		display: none;
+	}
+
+	/**
+	 * The icon
+	 */
+	> span[aria-hidden]:before {
+		@extend .icon;
+		@extend .icon-reorder;
+	}
+}
+
+#primary-nav {
+	clear: both; // We're floating its sibling (nav toggle)
+	font-family: $nav-font-family;
+	text-transform: uppercase;
+	text-align: center;
+	@include rem(font-size, 2 * $base-font-size);
+
+	/**
+	 * If JS disabled, show the nav by default
+	 */
+	.no-js & {
+		display: block;
+	}
+
+	/**
+	 * Mobile nav slide effect for JS users
+	 * Browsers without CSS transition support (< IE10) will simply see the nav
+	 * pop open/closed (I assume... this has been tested, right?)
+	 */
+	.js & {
+		overflow: hidden;
+
+		&.is-closed {
+			height: 0;
+			@include prefix(transition, height .7s cubic-bezier(0.680, -0.550, 0.265, 1.550)); // easeInOutBack
+		}
+
+		&.is-open{
+
+			/**
+			 * For some reason the transition doesn't work with simply height: auto;
+			 * So wee need to explicitly declare a height for the nav - no idea why??
+			 * Calculate approximate height using font size and padding of nav links
+			 *
+			 * The 1 in "2 * 1" refers to padding top/bottom on link tags (see declaration below)
+			 */
+			@include rem(height, $num-nav-items * ($nav-font-size + (2 * 1)*$base-font-size) );
+			@include prefix(transition, height .5s cubic-bezier(0.175, 0.885, 0.320, 1.275)); // easeOutBack
+		}
+	}
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($nav-breakpoint) {
+		clear: none;
+		display: block;
+		float: right;
+		height: auto !important; // !important required to override .js .is-closed specificity
+
+		/**
+		 * Appoximate vertical alignment using margin and font-size
+		 * For this to be accurate there can be no vertical margin/padding on any children
+		 */
+		@include rem(margin-top margin-bottom, max(0, ($logo-height - 2 * $base-font-size) / 2) );
+	}
+
+	> ul {
+		@extend %unstyled-list;
+
+		> li {
+
+			/* ------ BREAKPOINTS ------ */
+			@include screen-gt($nav-breakpoint) {
+				display: inline-block;
+				@include rem(padding-left padding-right, .5);
+			}
+
+			> a {
+				@extend %unstyled-link;
+				display: block;
+				color: $white;
+				@include rem(padding-top padding-bottom, 1); // This padding value used in nav height calculation above
+
+				/* ------ BREAKPOINTS ------ */
+				@include screen-gt($nav-breakpoint) {
+					padding: 0;
+				}
+
+				&:hover,
+				&:active,
+				&.active {
+					color: $white;
+					background: $black;
+
+					/* ------ BREAKPOINTS ------ */
+					@include screen-gt($nav-breakpoint) {
+						color: $primary-color-light;
+						background: none;
+					}
+				}
+			}
+		}
+	}
+}

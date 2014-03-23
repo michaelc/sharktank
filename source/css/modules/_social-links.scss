@@ -1,0 +1,99 @@
+/**
+ * List of social icons in footer
+ * <ul class="follow-list">
+ *
+ * List of social icons for sharing articles
+ * <ul class="sharing-list">
+ */
+.follow-list,
+.sharing-list {
+	@extend %unstyled-list;
+
+	li {
+		display: inline-block;
+		@include rem(margin-right, 1);
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		> a {
+			@extend %unstyled-link;
+			opacity: .7;
+
+			&:hover,
+			&:focus {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.follow-list {
+
+	li a {
+
+		> span[aria-hidden]:before {
+			@extend .icon;
+			@include rem(font-size, 3 * $base-font-size);
+
+			&.github {
+				@extend .icon-github-sign;
+			}
+
+			&.twitter {
+				@extend .icon-twitter-sign;
+			}
+
+			&.linkedin {
+				@extend .icon-linkedin-sign;
+			}
+
+			&.rss {
+				@extend .icon-rss-sign;
+			}
+		}
+	}
+}
+
+.sharing-list {
+	@include rem(margin-top, 1);
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($small) {
+		display: inline-block;
+		margin-top: 0;
+		@include rem(margin-left, 1);
+
+		&:before {
+			content: "|";
+			display: inline-block;
+			vertical-align: top;
+			@include rem(margin-right, 1);
+		}
+	}
+
+	li a {
+
+		> span[aria-hidden]:before {
+			@extend .icon;
+			@include rem(font-size, 1.5 * $base-font-size);
+
+			&.facebook {
+				@extend .icon-facebook-sign;
+			}
+
+			&.twitter {
+				@extend .icon-twitter-sign;
+			}
+
+			&.google-plus {
+				@extend .icon-google-plus-sign;
+			}
+
+			&.linkedin {
+				@extend .icon-linkedin-sign;
+			}
+		}
+	}
+}

@@ -1,0 +1,27 @@
+%article.contact
+	%section.intro
+		%h1.page-title Drop by and say hello, we don't bite.
+
+		%p.lede
+			Despite the name, we're friendly and sociable. Feel free to get in touch to discuss opportunities, or whatever's on your mind.
+
+	%section.contact-details
+		.enquiry
+			%h2 Job Enquiries
+			%p.lede Want to work with us?
+			%p Send us your CV and let us know why you belong in the shiver.
+			= mail_to "bait@sharktank.co.uk"
+
+		.enquiry
+			%h2 General Enquiries
+			%p.lede Send us a note or give us a call.
+			= partial "contact-list"
+
+		.enquiry
+			%h2 Follow Us
+			%p.lede How fast can you swim?
+			= partial "follow-list"
+
+	%section.map
+		%h2 Find us on the map
+		=# image_tag "http://maps.googleapis.com/maps/api/staticmap?center=51.522857,-0.106751&zoom=16&format=png&sensor=false&size=1440x350&maptype=roadmap&visual_refresh=true&style=saturation:-100|visibility:simplified&style=feature:road.arterial|visibility:on&style=feature:transit.station.rail|visibility:on"

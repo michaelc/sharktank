@@ -1,0 +1,171 @@
+/**
+ * Post summaries wrapper
+ * <div class="posts">
+ */
+.posts {
+	@extend %cf;
+}
+
+/* ==========================================================================
+	 Post summaries
+	 ========================================================================== */
+
+/**
+ * <div class="post-summary">
+ */
+.post-summary {
+	color: $white;
+	@include rem(margin-bottom, 1.5);
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium) {
+		/**
+		 * Display 3 post summaries horizontally
+		 */
+		@include span-columns(4); // Bourbon/Neat
+		@include omega(3n); // Bourbon/Neat
+	}
+
+	> a {
+		@extend %unstyled-link;
+		background: $primary-color; // Default colour if no colour specified in post frontmatter
+		display: block; // Make the whole block clickable for better usability
+
+		&:hover {
+			background: darken($primary-color, $brightness-adjustment);
+		}
+	}
+
+	.post-date {
+		display: table-cell; // I know, I know. But vertical centering is hell any other way.
+		vertical-align: middle;
+		line-height: 1;
+		font-family: $heading-font-family;
+		text-transform: uppercase;
+		text-align: center;
+		color: $primary-color; // Default colours if no colour specified in post frontmatter
+		background: darken($primary-color, $brightness-adjustment);
+		text-shadow: -1px -1px rgba(0, 0, 0, .2);
+		@include rem(font-size, $h3-size);
+		@include rem(padding, .5);
+	}
+
+	.post-title {
+		display: table-cell;
+		vertical-align: middle;
+		margin: 0;
+		text-transform: uppercase;
+		@include rem(font-size, $h3-size);
+		@include rem(padding, .5);
+	}
+
+	p {
+		margin: 0;
+		color: $white; // Default colours
+		background: $black-light;
+		@include rem(padding, 1);
+
+		/**
+		 * Invert colours on articles page
+		 */
+		.articles & {
+			color: $black-light;
+			background: $white;
+		}
+	}
+
+	/**
+	 * Post colours
+	 */
+	@each $color in $color-pairs {
+		$color-name: nth($color,1);
+		$color-value: nth($color,2);
+
+		& > a.#{$color-name} {
+			background: $color-value;
+
+			&:hover {
+				background: darken($color-value, $brightness-adjustment);
+			}
+
+			&:active {
+				background: $color-value;
+			}
+
+			.post-date {
+				color: $color-value;
+				background: darken($color-value, $brightness-adjustment);
+			}
+		}
+	}
+}
+
+/* ==========================================================================
+	 Latest posts
+	 ========================================================================== */
+
+/**
+ * <section class="latest-posts">
+ */
+.latest-posts {
+	@extend %container;
+	text-align: left;
+	background: $white; // Default background colour
+	@include background-extend(clearfix);
+
+	/**
+	 * Invert background colour on article index page
+	 */
+	.articles & {
+		background: $black-light;
+	}
+
+	> h1 {
+		@extend %visually-hidden;
+	}
+}
+
+/* ==========================================================================
+	 Older posts
+	 ========================================================================== */
+
+/**
+ * <section class="older-posts">
+ */
+.older-posts {
+	@extend %container;
+	text-align: left;
+
+	> h1 {
+		@include rem(font-size, $h2-size);
+	}
+
+	.post-summary {
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-bw($medium-small, $medium) {
+			/**
+			 * Display post summaries in 2 columns
+			 */
+			@include span-columns(6); // Bourbon/Neat
+			@include omega(2n); // Bourbon/Neat
+		}
+
+		@include screen-gt($medium) {
+			/**
+			 * Display post summaries in 3 columns
+			 */
+			@include span-columns(4); // Bourbon/Neat
+			@include omega(3n); // Bourbon/Neat
+		}
+
+	 .post-title,
+	 .post-date {
+			@include rem(font-size, $h4-size);
+		}
+	}
+}

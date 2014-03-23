@@ -1,0 +1,111 @@
+/**
+ * Image replacement, based on HTML5 Boilerplate
+ * http://h5bp.com
+ */
+%ir {
+	background-color: transparent;
+	border: 0;
+	overflow: hidden;
+
+	&:before {
+		content: "";
+		display: block;
+		width: 0;
+		height: 150%;
+	}
+}
+
+/**
+ * Visually hidden, based on HTML5 Boilerplate
+ * http://h5bp.com/v
+ */
+%visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/**
+ * Micro clearfix class
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ */
+%cf {
+
+	//&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+/**
+ * Remove default styling on links
+ * e.g. a.vanilla { @extend %unstyled-link; }
+ */
+%unstyled-link {
+
+	&,
+	&:hover,
+	&:active {
+		text-decoration: none;
+		color: inherit;
+		border-bottom: none;
+		background-color: transparent;
+	}
+}
+
+/**
+ * Remove bullets and margin/padding on ordered/unordered lists
+ * e.g. ul.plain { @extend %unstyled-list; }
+ */
+%unstyled-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+/**
+ * Enable hardware acceleration and stop flickering on CSS transitions
+ * http://indiegamr.com/ios6-html-hardware-acceleration-changes-and-how-to-fix-them/
+ */
+%flicker-fix {
+	@include prefix(transform, translateZ(0), webkit moz); // Bourbon
+	@include prefix(perspective, 1000, webkit moz); // Bourbon
+	@include prefix(backface-visibility, hidden, webkit moz); // Bourbon
+
+	// -webkit-transform: translateZ(0);
+	// -moz-transform: translateZ(0);
+	// -webkit-perspective: 1000;
+	// -moz-perspective: 1000;
+	// -webkit-backface-visibility: hidden;
+	// -moz-backface-visibility: hidden;
+}
+
+/**
+ * Dual columns, magazine-style
+ */
+%col {
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium) {
+		@include span-columns(5.5); // Bourbon/Neat
+		@include omega(2n); // Bourbon/Neat
+
+		&:nth-of-type(2) {
+			@include shift(1); // Bourbon/Neat
+		}
+	}
+}
+
+%block-large {
+
+}

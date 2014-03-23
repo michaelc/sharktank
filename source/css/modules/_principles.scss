@@ -1,0 +1,102 @@
+/* ==========================================================================
+	 Placeholders & mixins
+	 ========================================================================== */
+
+/**
+ * Styles common to all principle <section>s
+ */
+%principle-block {
+	color: $black-light;
+	text-align: left;
+	z-index: -1; // To crop icons; can't use overflow: hidden b/c need full-width background
+	@include background-extend(clearfix);
+
+	> h1 {
+		//color: $white;
+	}
+
+	> p {
+		@extend .lede;
+	}
+
+	/**
+	 * The icons
+	 */
+	&:after {
+		@extend .icon;
+		position: absolute;
+		font-size: 0; // Hide icon on smaller screens
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($medium-small) {
+			opacity: .8;
+			@include rem(font-size, 16);
+
+			/**
+			 * Vertically center the icon using its font-size along with the calc
+			 * feature
+			 */
+			@include calc(top, "50% - 16rem/2", 0);
+		}
+	}
+}
+
+/**
+ * Generate the styles for each principle
+ */
+@mixin principle-style($color, $color-dark, $color-light, $icon, $left-right) {
+	@extend %principle-block;
+	background: $color-light;
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-lt($medium-small) {
+		> h1 {
+			@include rem(margin-top, 2);
+		}
+	}
+
+	@include screen-gt($medium-small) {
+		padding-#{$left-right}: 40%;
+	}
+
+	&:after {
+		@extend .#{$icon};
+		color: $color;
+		#{$left-right}: 0;
+	}
+
+	em {
+		background: $color;
+	}
+}
+
+/* ==========================================================================
+	 Principle styles
+	 ========================================================================== */
+
+.principles {
+	@extend %container;
+	@extend %cf;
+	padding-top: 0;
+	padding-bottom: 0;
+
+	> h1 {
+		@extend %visually-hidden;
+	}
+}
+
+.team {
+	@include principle-style($red, $red-dark, $red-light, icon-group, right);
+}
+
+.value {
+	@include principle-style($orange, $orange-dark, $orange-light, icon-trophy, left);
+}
+
+.believe {
+	@include principle-style($violet, $violet-dark, $violet-light, icon-rocket, right);
+}
+
+.practice {
+	@include principle-style($blue, $blue-dark, $blue-light, icon-spinner, left);
+}

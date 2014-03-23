@@ -1,0 +1,61 @@
+#footer {
+	color: $white;
+	background: $black-light;
+	@include rem(font-size, .8);
+
+	&:before {
+		@extend %ribbon;
+	}
+
+	.wrap {
+		@extend %cf; // We're floating children w/ span-columns
+
+		> div {
+			text-align: center;
+			@include rem(padding-top padding-bottom, 1);
+
+			&:last-child {
+				@include rem(padding-bottom, 2.25);
+			}
+
+			/* ------ BREAKPOINTS ------ */
+			@include screen-gt($medium-small) {
+				text-align: left;
+				@include rem(padding-top padding-bottom, 2.25);
+				@include span-columns(4); // Bourbon/Neat
+				@include omega(3n); // Bourbon/Neat
+			}
+		}
+	}
+
+	.contact-list li {
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.copyright {
+		text-align: center !important; // !important required to override specificity of > div above
+		@include rem(margin-top, 1);
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($medium-small) {
+			margin-top: 0;
+		}
+
+		> p:first-child:before {
+			display: block;
+			content: "";
+			margin-left: auto;
+			margin-right: auto;
+			background: url("../#{$img-dir}/logomark.png") no-repeat;
+			background-size: 100%;
+			@include rem(height width, 75px);
+			@include rem(margin-bottom, 1);
+		}
+	}
+}
+
+.footer-title {
+	font-family: $nav-font-family;
+	@include rem(font-size, $h2-size);
+}

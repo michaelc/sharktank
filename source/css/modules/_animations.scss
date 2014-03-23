@@ -1,0 +1,52 @@
+%zoom-bounce {
+	@include prefix(animation-name, zoom-bounce); // Bourbon
+	@include prefix(animation-duration, .8s); // Bourbon
+}
+
+@include keyframes(zoom-bounce) { // Bourbon
+	from {
+		opacity: 0;
+		@include prefix(transform, scale(0)); // Bourbon
+	}
+
+	50% {
+		opacity: 0;
+		@include prefix(transform, scale(0)); // Bourbon
+	}
+
+	82.5% {
+		opacity: 1;
+		@include prefix(transform, scale(1.2)); // Bourbon
+		@include prefix(animation-timing-function, ease-out); // Bourbon
+	}
+
+	to {
+		@include prefix(transform, scale(1)); // Bourbon
+	}
+}
+
+%drop-bounce {
+	@include prefix(animation-name, drop-bounce); // Bourbon
+	@include prefix(animation-duration, .8s); // Bourbon
+}
+
+@include keyframes(drop-bounce) { // Bourbon
+	from {
+		opacity: 0;
+		@include prefix(transform, translateY(-100em)); // Bourbon
+	}
+
+	60% {
+		opacity: 1;
+		@include prefix(transform, translateY(1em)); // Bourbon
+		//@include prefix(animation-timing-function, ease-out); // Bourbon
+	}
+
+	80% {
+		@include prefix(transform, translateY(-.5em)); // Bourbon
+	}
+
+	to {
+		@include prefix(transform, translateY(0)); // Bourbon
+	}
+}

@@ -1,0 +1,35 @@
+/**
+ * Set heading sizes
+ */
+$heading-sizes: $h1-size, $h2-size, $h3-size, $h4-size, $h5-size, $h6-size;
+
+@for $i from 1 through 6 {
+	h#{$i} {
+		@include rem(font-size, nth($heading-sizes, $i));
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $heading-font-family;
+	font-weight: normal; // Since "Francois One" has no bold face
+	text-transform: uppercase;
+	line-height: 1.125;
+}
+
+h1 {
+	text-transform: uppercase;
+}
+
+p {
+
+	&.lede {
+		font-size: 125%;
+		//font-family: $serif-family;
+		@include rem(margin-bottom, 2);
+	}
+}

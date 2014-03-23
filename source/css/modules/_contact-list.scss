@@ -1,0 +1,7 @@
+.contact-list {
+	@extend %unstyled-list;
+
+	li:last-child {
+		@include rem(margin-top, 1);
+	}
+}

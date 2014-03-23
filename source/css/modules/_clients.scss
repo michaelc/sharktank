@@ -1,0 +1,37 @@
+/**
+ * <section class="clients">
+ */
+.clients {
+	@extend %container;
+	text-align: center;
+	@include background-extend;
+
+	> h1 {
+		@extend %visually-hidden;
+	}
+}
+
+/**
+ * <ul class="clients-list">
+ * The unordered list of clients, with corresponding logo <img>s
+ */
+.clients-list {
+	@extend %unstyled-list;
+
+	> li {
+		display: inline-block;
+		vertical-align: middle; // It works! It actually works!!
+		@include rem(margin-left margin-right, 1);
+		@include rem(margin-top margin-bottom, .75);
+
+		a {
+			@extend %unstyled-link;
+			display: inline-block;
+			opacity: .7;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+}

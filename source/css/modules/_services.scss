@@ -1,0 +1,82 @@
+/**
+ * <section class="services">
+ */
+.services {
+	@extend %container;
+	background: $black-light;
+	color: $white;
+	text-align: center;
+	@include background-extend;
+}
+
+/**
+ * <ul class="services-list">
+ * The unordered list of services offered, with corresponding font icons
+ *
+ * Using icon font usage principles from:
+ * http://css-tricks.com/html-for-icon-font-usage/
+ */
+.services-list {
+	@extend %unstyled-list;
+	font-family: $heading-font-family;
+	text-transform: uppercase;
+	@include rem(font-size, $h3-size);
+	@include rem(margin-top, 2.5);
+	@include outer-container; // Bourbon/Neat
+
+	> li {
+		position: relative; // Required for absolute position on icons
+		@include rem(margin-bottom, 2);
+		@include span-columns(12); // Bourbon/Neat
+
+		&:last-child {
+			@include rem(margin-bottom, 1);
+		}
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($medium-small) {
+			/**
+			 * Display list of 4 services horizontally
+			 */
+			@include span-columns(3); // Bourbon/Neat
+			@include omega(4n); // Bourbon/Neat
+		}
+
+		/**
+		 * Services icons
+		 */
+		> span[aria-hidden]:before {
+			@extend .icon;
+			color: $grey-lighter;
+			opacity: .3;
+			position: absolute;
+			top: -50%;
+			left: auto;
+			@include rem(font-size, 4 * $base-font-size);
+
+			/* ------ BREAKPOINTS ------ */
+			@include screen-gt($medium-small) {
+				display: block; // Make icons appear on top
+				position: relative;
+				@include rem(font-size, 6 * $base-font-size);
+				@include rem(margin-bottom, .75);
+			}
+
+			&.web {
+				@extend .icon-cogs;
+			}
+
+			&.software {
+				@extend .icon-wrench;
+			}
+
+			&.branding {
+				@extend .icon-star;
+			}
+
+			&.business {
+				@extend .icon-file-text;
+			}
+		}
+	}
+}

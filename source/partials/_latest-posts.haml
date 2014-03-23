@@ -1,0 +1,20 @@
+-#
+	Initialise local variables per https://github.com/middleman/middleman/issues/344#issuecomment-4980338
+	Alternatively, could do something like :class => (class_names if locals[:class_names]), etc. for each local
+-#
+
+- class_names ||= ""
+
+%section.latest-posts{:class => class_names}
+	%h1 Latest Articles
+
+	.posts
+		- blog.articles[0...3].each do |article|
+			.post-summary
+				= link_to article.url, :class => article.data.colour do
+					.post-date
+						%time{:datetime => article.date.strftime("%B %e, %Y")} #{article.date.strftime("%e<br>%b")}
+
+					%h2.post-title= article.title
+
+				%p= truncate(article.data.teaser, :length => blog.options.summary_length) || strip_tags(article.summary)

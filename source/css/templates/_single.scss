@@ -1,0 +1,65 @@
+.single {
+	@extend %container;
+	@include rem(margin-bottom, 1);
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium-small) {
+		/**
+		 * $container-max-width creates a line length that is too long for
+		 * comfortably reading articles, so we need a smaller container. We could
+		 * use Neat's span-columns, but we can't use that and @extend %container on
+		 * the same element. So we manually set a reduced max width for the articles
+		 * instead.
+		 */
+		@include rem(max-width, (8/12)*$container-max-width); // Simulate Neat's span-columns(8)
+	}
+
+	.post-title > a {
+		color: $primary-color; // Default colour if no colour specified in post frontmatter
+	}
+
+	.post-meta {
+		@include rem(margin-bottom, 2);
+
+		> time {
+			display: inline-block;
+		}
+	}
+
+	.post-content {
+		@include rem(margin-bottom, 2);
+
+		/**
+		 * Add bottom border and padding to lede on single article pages
+		 */
+		> :first-child {
+			@extend .lede;
+			border-bottom: 1px dotted;
+			@include rem(padding-bottom, 2);
+		}
+	}
+
+	/**
+	 * Post colours
+	 */
+	@each $color in $color-pairs {
+		$color-name: nth($color,1);
+		$color-value: nth($color,2);
+
+		&.#{$color-name} {
+
+			.post-title > a {
+				color: $color-value;
+
+				&:hover {
+					border-bottom: none;
+				}
+
+				&:active {
+					color: $white;
+					background: $color-value;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,59 @@
+#header {
+	background: $black-light;
+	line-height: 1; // For easier vertical alignment of children
+
+	&:after {
+		@extend %ribbon;
+	}
+
+	.wrap {
+		@extend %cf; // We're floating the logo and the nav
+	}
+}
+
+/**
+ * Responsive background logo image influenced by ideas from:
+ * http://mobile.smashingmagazine.com/2013/07/22/simple-responsive-images-with-css-backgrounds/
+ */
+#logo {
+	float: left;
+	margin-top: 0;
+	margin-bottom: 0;
+	max-width: 70%; // The responsive magic
+	@include rem(width, $logo-width);
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-lt($nav-breakpoint) {
+		/**
+		 * If JS disabled then no nav button, so align logo center
+		 */
+		.no-js & {
+			float: none;
+			margin: 0 auto;
+		}
+	}
+
+	/**
+	 * Bouncy zoom-in effect on home page only
+	 */
+	.index & {
+		@extend %flicker-fix;
+		@extend %drop-bounce;
+	}
+
+	> a {
+		@extend %ir;
+		@extend %flicker-fix; // For CSS transition on hover
+		display: block;
+		width: 100%;
+		background: url("../#{$img-dir}/logo@2x.png") no-repeat;
+		background-size: 100%;
+		background-position: 50% 50%; // This is what keeps it vertically centered when "squeezed"
+		@include rem(height, $logo-height);
+		//@include prefix(transition, all .3s cubic-bezier(0.680, -0.550, 0.265, 1.550)); // easeInOutBack
+
+		&:hover {
+			//@include prefix(transform, scale(1.1));
+		}
+	}
+}

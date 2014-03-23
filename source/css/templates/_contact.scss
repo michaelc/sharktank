@@ -1,0 +1,50 @@
+.contact-details {
+	@extend %container;
+	@extend %cf;
+	padding-top: 0;
+}
+
+.enquiry {
+	@include rem(padding-top, 1);
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-lt($medium-small) {
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+
+	@include screen-gt($medium-small) {
+		@include span-columns(4); // Bourbon/Neat
+		@include omega(3n); // Bourbon/Neat
+	}
+
+	.lede {
+		@include rem(margin-bottom, 1);
+	}
+}
+
+.map {
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-lt($medium-small) {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	/**
+	 * Only show map on medium+ sized screens
+	 */
+	@include screen-gt($medium-small) {
+		height: 350px;
+		min-width: 100%;
+		background: url("../#{$img-dir}/map.jpg") no-repeat;
+		background-size: cover;
+		background-position: 50% 50%;
+		@include rem(margin-top, 2.5);
+	}
+
+	> h2 {
+		@extend %visually-hidden;
+	}
+}

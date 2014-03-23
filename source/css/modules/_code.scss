@@ -1,0 +1,199 @@
+/**
+ * Syntax highlighting for code blocks
+ *
+ * If you'd rather use Rouge's built-in Solarized theme, simply create a file
+ * called _rouge.css.erb with the following:
+ *
+ * <%= Rouge::Themes::Base16::Solarized.render(:scope => ".highlight") %>
+ *
+ * Markdown usage example:
+ *
+ * ```ruby
+ * ruby code here
+ * ```
+ *
+ * Template usage example:
+ *
+ * <% code("ruby") do %>
+ * ruby code here
+ * <% end %>
+ */
+
+pre,
+code {
+	font-family: $mono-family;
+	background: $white-dark;
+	word-wrap: break-word;
+	@include rem(font-size, .9);
+}
+
+code {
+	color: $black-light;
+	border: 1px solid darken($base2, 5%);
+	@include rem(margin-left margin-right padding-left padding-right, .2);
+	@include prefix(hyphens, none, webkit moz ms spec);
+
+	pre & {
+		/**
+		 * Remove all styling When enclosed in <pre> tag
+		 */
+		border: none;
+		background: none;
+		display: block;
+		margin: 0;
+		padding: 0;
+		white-space: inherit;
+		word-wrap: inherit;
+	}
+}
+
+pre {
+	white-space: pre;
+	word-wrap: normal;
+	overflow-x: auto;
+	@include rem(padding, .75);
+}
+
+/* ==========================================================================
+	 Code styles
+	 ========================================================================== */
+
+$syntax-bg-color: "";
+$syntax-font-color: "";
+$syntax-border-color: "";
+
+@if $syntax-theme == "light" {
+	$syntax-bg-color: $base2;
+	$syntax-font-color: $base01;
+	$syntax-border-color: darken($syntax-bg-color, 5%);
+}
+
+@else if $syntax-theme == "dark" {
+	$syntax-bg-color: $base02;
+	$syntax-font-color: $base1;
+	$syntax-border-color: $syntax-font-color;
+}
+
+/**
+ * Pygments-compatible styles modified/adapted from:
+ * https://gist.github.com/scotu/1272660
+ */
+.highlight {
+	color: $syntax-font-color;
+	background: $syntax-bg-color;
+	border: 1px solid $syntax-border-color;
+
+	table {
+		border-spacing: 0;
+		@include rem(margin, -.75); // To offset padding on <pre>
+	}
+
+	td {
+		@include rem(padding, .75); // Instead of paddin on <pre>
+	}
+
+	/**
+	 * Line numbers
+	 */
+	.gl {
+		color: $base1;
+		background: lighten($syntax-bg-color, 2%);
+		text-align: right;
+		vertical-align: top;
+		border-right: 1px solid $syntax-border-color;
+		@include calc(padding-top, ".75rem + 2px", .75 * $base-font-size); // Can't figure out why line numbers don't line up with code - a <table> issue?
+	}
+
+	/**
+	 * Function/variable names in JS
+	 */
+	&.javascript {
+		.kd + .nx { color: $yellow; }
+	}
+
+	&.ruby {
+		.n + .nf { color: $syntax-font-color; }
+	}
+
+	.c { color: $base1; font-style: italic; } /* Comment */
+	.err { color: $base1; } /* Error */
+	.g { color: $base1; } /* Generic */
+	.k { color: $green; font-weight: bold; } /* Keyword */
+	.l { color: $syntax-font-color; } /* Literal */
+	.n { color: $syntax-font-color; } /* Name */
+	.o { color: $green; } /* Operator */
+	.x { color: $orange; } /* Other */
+	.p { color: $base1; } /* Punctuation */
+
+	.bp { color: $blue; } /* Name.Builtin.Pseudo */
+
+	.c1 { color: $base1; font-style: italic; } /* Comment.Single */
+	.cm { color: $base1; font-style: italic; } /* Comment.Multiline */
+	.cp { color: $green; } /* Comment.Preproc */
+	.cs { color: $green; } /* Comment.Special */
+
+	.gd { color: $cyan; } /* Generic.Deleted */
+	.ge { color: $base1; font-style: italic; } /* Generic.Emph */
+	.gh { color: $orange; } /* Generic.Heading */
+	.gi { color: $green; } /* Generic.Inserted */
+	.go { color: $base1; } /* Generic.Output */
+	.gp { color: $base1; font-weight:bold; } /* Generic.Prompt */
+	.gr { color: $red; } /* Generic.Error */
+	.gs { color: $base1; font-weight: bold; } /* Generic.Strong */
+	.gt { color: $base1; } /* Generic.Traceback */
+	.gu { color: $orange; } /* Generic.Subheading */
+
+	.il { color: $cyan; } /* Literal.Number.Integer.Long */
+
+	.kc { color: $orange; } /* Keyword.Constant */
+	.kd { color: $blue; font-weight: bold; } /* Keyword.Declaration */
+	.kn { color: $green; } /* Keyword.Namespace */
+	.kp { color: $green; } /* Keyword.Pseudo */
+	.kr { color: $blue; } /* Keyword.Reserved */
+	.kt { color: $red; } /* Keyword.Type */
+
+	.ld { color: $syntax-font-color; } /* Literal.Date */
+
+	.m { color: $cyan; } /* Literal.Number */
+	.mf { color: $cyan; } /* Literal.Number.Float */
+	.mh { color: $cyan; } /* Literal.Number.Hex */
+	.mi { color: $cyan; } /* Literal.Number.Integer */
+	.mo { color: $cyan; } /* Literal.Number.Oct */
+
+	.na { color: $syntax-font-color; } /* Name.Attribute */
+	.nb { color: $yellow; } /* Name.Builtin */
+	.nc { color: $blue; } /* Name.Class */
+	.nd { color: $blue; } /* Name.Decorator */
+	.ne { color: $orange; } /* Name.Exception */
+	.nf { color: $blue; } /* Name.Function */
+	.ni { color: $orange; } /* Name.Entity */
+	.nl { color: $syntax-font-color; } /* Name.Label */
+	.nn { color: $syntax-font-color; } /* Name.Namespace */
+	.no { color: $orange; } /* Name.Constant */
+	.nt { color: $blue; } /* Name.Tag */
+	.nv { color: $blue; } /* Name.Variable */
+	.nx { color: $syntax-font-color; } /* Name.Other */
+
+	.py { color: $syntax-font-color; } /* Name.Property */
+
+	.ow { color: $green; } /* Operator.Word */
+
+	.s { color: $cyan; } /* Literal.String */
+	.s1 { color: $cyan; } /* Literal.String.Single */
+	.s2 { color: $cyan; } /* Literal.String.Double */
+	.sb { color: $syntax-font-color; } /* Literal.String.Backtick */
+	.sc { color: $cyan; } /* Literal.String.Char */
+	.sd { color: $syntax-font-color; } /* Literal.String.Doc */
+	.se { color: $orange; } /* Literal.String.Escape */
+	.sh { color: $syntax-font-color; } /* Literal.String.Heredoc */
+	.si { color: $cyan; } /* Literal.String.Interpol */
+	.sr { color: $red; } /* Literal.String.Regex */
+	.ss { color: $cyan; } /* Literal.String.Symbol */
+	.sx { color: $cyan; } /* Literal.String.Other */
+
+	.vc { color: $blue; } /* Name.Variable.Class */
+	.vg { color: $blue; } /* Name.Variable.Global */
+	.vi { color: $blue; } /* Name.Variable.Instance */
+
+	.w { color: $syntax-font-color; } /* Text.Whitespace */
+}

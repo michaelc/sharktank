@@ -1,0 +1,12 @@
+%header#header{:role => "banner"}
+	.wrap
+		%h1#logo= link_to site_title, "/"
+		= link_to "#", :id => "mobile-nav-toggle" do
+			%span{:aria => {:hidden => true}}
+			%span{:class => "screenreader"} Menu
+
+		%nav#primary-nav{:role => "navigation", :class => "is-closed"}
+			%ul
+				%li= link_to "Thoughts", "/articles.html"
+				%li= link_to "Jobs", "/jobs.html"
+				%li= link_to "Contact", "/contact.html"

@@ -1,0 +1,28 @@
+/**
+ * Example usage:
+ * #header:after { @extend %ribbon; }
+ *
+ * Creates a horizontal decorative bar that spans the width of the parent element
+ */
+%ribbon {
+	display: block;
+	content: "";
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: 0;
+
+	/**
+	 * Normally width: 100% and margin-left: 0 would suffice, however the ribbon
+	 * won't span the full width if the parent has padding applied (eg. if it's
+	 * using @extend %container). The values below will force full width
+	 * regardless of padding.
+	 *
+	 * The caveat: left/right gradients won't be accurate since the ribbon starts
+	 * off the left of the page and finishes past the right
+	 */
+	width: 200%;
+	margin-left: -50%;
+	overflow: hidden;
+	@include rem(height, .5);
+	@include linear-gradient(left, $primary-color-darker, $primary-color-dark, $primary-color, $primary-color-light, $primary-color-lighter, $fallback: $primary-color-light);
+}

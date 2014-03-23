@@ -1,0 +1,29 @@
+- share_url = current_page.data.short_url || site_url + current_page.url
+
+- wrap_layout :default do
+
+	%article.single{:class => current_page.data.colour}
+		%h1.post-title= link_to current_page.title, current_page.url
+
+		.post-meta
+			%time{:datetime => current_page.date.strftime('%B %e, %Y')}
+				= current_page.date.strftime("%e %B %Y")
+
+			%ul.sharing-list
+				%li= social_link("Share on Facebook", "http://www.facebook.com/sharer/sharer.php?u=#{share_url}", "facebook")
+				%li= social_link("Share on Twitter", "https://twitter.com/intent/tweet?url=#{share_url}&text=#{current_page.title}", "twitter")
+				%li= social_link("Share on Google+", "https://plus.google.com/share?url=#{share_url}", "google-plus")
+				%li= social_link("Share on LinkedIn", "http://www.linkedin.com/shareArticle?mini=true&url=#{share_url}", "linkedin")
+
+		.post-content
+			-#
+				Use find_and_preserve to avoid weird indentation and spacing issues in fenced code blocks
+				https://github.com/middleman/middleman-syntax/issues/16#issuecomment-16011544
+			-#
+			= find_and_preserve do
+				= yield
+
+		%p= link_to "See all articles", "/articles.html", :class => "articles-button"
+
+		%section.comments
+			#disqus_thread

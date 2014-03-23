@@ -1,0 +1,78 @@
+%article.home
+	%section.intro
+		%h1.page-title Sharktank solves problems.
+
+		%p.lede
+			We are a small, passionate team of Agile enthusiasts, using cutting edge technologies to deliver creative solutions to complex business problems.
+
+		= link_to "Join our team", "/jobs.html", :class => "join-button"
+
+	= partial "latest-posts"
+
+	%section.services
+		%h1 We build targeted, robust applications.
+
+		%p.lede
+			Drawing upon a wide range of experience and skills, our solutions are crafted with impact and user focus as defining features.
+
+		%ul.services-list
+			%li
+				%span.web{:aria => {:hidden => true}}
+				Web Design & Development
+			%li
+				%span.software{:aria => {:hidden => true}}
+				Software Development
+			%li
+				%span.branding{:aria => {:hidden => true}}
+				Branding
+			%li
+				%span.business{:aria => {:hidden => true}}
+				Business Solutions
+
+	%section.principles
+		%h1 Our Principles
+
+		%section.team
+			%h1 We are <em>one team</em>.
+
+			%p
+				We are a close-knit group of <em>planners</em>, <em>designers</em>, <em>integrators</em>, and <em>implementors</em>, working together to exceed expectations and deliver world-class results.
+
+		%section.value
+			%h1 We <em>value</em>.
+
+			%p
+				Through core values of <em>respect</em>, <em>courage</em>, and <em>freedom</em>, we motivate each other to think big, experiment freely, and share ideas that enrich the whole team.
+
+		%section.believe
+			%h1 We <em>believe</em>.
+
+			%p
+				We focus on <em>elegance and simplicity</em> in all we do, and with a strong belief in <em>our people</em> we're driven to succeed and <em>help each other grow</em>.
+
+		%section.practice
+			%h1 We <em>practice</em>.
+
+			%p
+				Our daily rhythm consists of <em>test-driven development</em>, <em>pair programming</em>, and <em>Agile planning</em>, using a variety of tools like Ruby, Rails, Go, JavaScript, and many others.
+
+	%section.clients
+		%h1 Selected Clients
+
+		%ul.clients-list
+			%li= link_to( image_tag("client-ygt.png", :alt => "Your Golf Travel"), "http://www.yourgolftravel.com" )
+			%li= link_to( image_tag("client-sb.png", :alt => "Spa Breaks"), "http://www.spabreaks.com" )
+			%li= link_to( image_tag("client-www.png", :alt => "Women's Wellness Week"), "http://womenswellnessweek.com" )
+			%li= link_to( image_tag("client-ls.png", :alt => "Legends Pro-Am Series"), "http://legendsgolfseries.com" )
+			%li= link_to( image_tag("client-rb.png", :alt => "Racing Breaks"), "http://www.racingbreaks.com" )
+			%li= link_to( image_tag("client-ftf.png", :alt => "Fairway to Furlong"), "http://www.fairwaytofurlong.com" )
+
+	%section.hiring
+		%h1 We're <em>hiring</em>!
+
+		%p
+			Sharktank is growing, and we're on the hunt for exceptional talent. Are you experienced and capable, looking to build on your existing development skills with the freedom to explore new ideas in a challenging and collaborative environment? Check out our current job openings!
+
+		= link_to "/jobs.html", :class => "hiring-cta" do
+			%span{:aria => {:hidden => true}}
+			%span.screenreader Jobs

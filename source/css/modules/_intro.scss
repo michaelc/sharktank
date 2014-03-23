@@ -1,0 +1,102 @@
+/* ==========================================================================
+	 Placeholders & mixins
+	 ========================================================================== */
+
+/**
+ * Large icon to left of page title & lede
+ *
+ * Example usage:
+ * .jobs .intro { @extend %intro; }
+ */
+%intro {
+	@extend %container;
+
+	& :last-child {
+		margin-bottom: 0;
+	}
+
+	.page-title {
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($small) {
+			position: relative; // Required for icon
+			margin-bottom: 0;
+			@include shift(2); // Bourbon/Neat
+		}
+
+		/**
+		 * The icon
+		 */
+		&:before {
+			@extend .icon;
+			display: none;
+
+			/* ------ BREAKPOINTS ------ */
+			@include screen-gt($small) {
+				display: block;
+				position: absolute;
+				top: 0;
+				border-radius: 50%;
+				text-align: center;
+				@include rem(left, -2);
+				@include prefix(box-sizing, content-box, moz spec);
+				@include rem(font-size, 48px);
+				@include rem(width height, 48px);
+				@include rem(padding, 1);
+				@include shift(-2); // Bourbon/Neat
+			}
+
+			@include screen-gt($medium-small) {
+				@include rem(font-size, 84px);
+				@include rem(width height, 84px);
+			}
+
+			@include screen-gt($medium) {
+				@include rem(left, -1);
+			}
+		}
+	}
+
+	> * {
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($small) {
+			@include shift(2); // Bourbon/Neat
+		}
+	}
+}
+
+/**
+ * Generate the styles for each intro section
+ */
+@mixin intro-style($color, $color-dark, $color-light, $icon) {
+	@extend %intro;
+
+	.page-title:before {
+		@extend .#{$icon};
+		color: $color;
+		background: $color-light;
+	}
+}
+
+/* ==========================================================================
+	 Intro styles
+	 ========================================================================== */
+
+.home .intro {
+	// @include intro-style($blue, $blue-dark, $blue-light, icon-pencil);
+
+	// .page-title, > * {@include shift(0);}
+}
+
+.articles .intro {
+	@include intro-style($red, $red-dark, $red-light, icon-pencil);
+}
+
+.jobs .intro {
+	@include intro-style($orange, $orange-dark, $orange-light, icon-thumbs-up);
+}
+
+.contact .intro {
+	@include intro-style($violet, $violet-dark, $violet-light, icon-coffee);
+}

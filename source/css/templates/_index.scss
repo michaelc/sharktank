@@ -1,0 +1,17 @@
+.home {
+	text-align: center;
+
+	em {
+		font-style: normal;
+		text-shadow: -1px -1px rgba(0, 0, 0, .2), 1px 1px rgba(255, 255, 255, .2);
+		@include rem(padding-left padding-right, .25);
+	}
+
+	.intro {
+		@extend %container;
+	}
+
+	.page-title {
+		color: $primary-color;
+	}
+}

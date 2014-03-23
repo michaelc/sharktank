@@ -1,0 +1,63 @@
+/**
+ * <section class="hiring">
+ */
+.hiring {
+	@extend %container;
+	background: $green;
+	color: $black-light;
+	position: relative; // Required for .hiring-cta absolute position
+	@include background-extend;
+
+	h1, p {
+		text-align: left;
+	}
+
+	p {
+
+		/* ------ BREAKPOINTS ------ */
+		@include screen-gt($medium-small) {
+			width: 75%; // Allow space for .hiring-cta icon
+		}
+	}
+
+	em {
+		background: $green-dark;
+	}
+}
+
+/**
+ * <a class="hiring-cta"><span aria-hidden>
+ * The "button" for the hiring section, represented by a huge icon
+ *
+ * Using icon font usage principles from:
+ * http://css-tricks.com/html-for-icon-font-usage/
+ */
+.hiring-cta {
+	@extend %unstyled-link;
+	display: inline-block;
+	color: $green-dark;
+	@include rem(margin-top, 1);
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium-small) {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		margin-top: 0;
+
+		/**
+		 * Vertically center by using a negative top margin equal to half the height
+		 * of the icon (which in this case is just its font size)
+		 */
+		@include rem(margin-top, - 12/2);
+	}
+
+	/**
+	 * The icon
+	 */
+	> span[aria-hidden]:before {
+		@extend .icon;
+		@extend .icon-circle-arrow-right;
+		@include rem(font-size, 12);
+	}
+}

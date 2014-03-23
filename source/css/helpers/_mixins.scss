@@ -1,0 +1,134 @@
+/* =========================================================================
+	 Media queries
+	 ========================================================================= */
+
+@mixin screen-gt($width) {
+	@media only screen and (min-width: em($width)) {
+		@content;
+	}
+}
+
+@mixin screen-lt($width) {
+	@media only screen and (max-width: em($width)) {
+		@content;
+	}
+}
+
+@mixin screen-bw($min-width, $max-width) {
+	@media only screen and (min-width: em($min-width)) and (max-width: em($max-width)) {
+		@content;
+	}
+}
+
+/* =========================================================================
+	 Custom mixins
+	 ========================================================================= */
+
+/**
+ * Provide pixel fallback for rem units
+ * This is done primarily for IE8 and Opera Mini
+ */
+@mixin rem($properties, $value, $base: $base-font-size) {
+	$px: 0;
+	$rem: 0;
+
+	// Interpret unitless values as rems
+	@if unitless($value) {
+		$px: $value * $base;
+		$rem: $value * 1rem;
+	}
+
+	// Otherwise, assume value is in pixels
+	@else {
+		$px: $value;
+		$rem: ($value / $base) * 1rem;
+	}
+
+	@each $property in $properties {
+		#{$property}: $px;
+		#{$property}: $rem;
+	}
+}
+
+/**
+ * Extend the background of an element beyond its edges to full viewport width
+ *
+ * Set $clearfix for compatibility with the %cf clearfix placeholder if used on
+ * the same element; it has the benefit of only using :before, which frees up
+ * :after for the clearfix (or other purposes)
+ *
+ * Note: This mixin conflicts with %container placeholder
+ *
+ */
+@mixin background-extend($clearfix: "") {
+	position: relative;
+
+	@if $clearfix == "clearfix" {
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -100%;
+			right: -100%; // Or set width: 9999px;
+			background-color: inherit;
+			z-index: -1; // Drop it behind parent
+		}
+	}
+
+	@else {
+		&:before,
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			background-color: inherit;
+
+			/**
+			 *  This brings the pseudo-elements above the parent on each side,
+			 *  effectively acting as overflow: hidden on the parent; remove if you
+			 *  don't want this behaviour
+			 */
+			z-index: 1;
+		}
+
+		&:before {
+			left: -100%;
+			right: 100%;
+		}
+
+		&:after {
+			left: 100%;
+			right: -100%;
+		}
+	}
+}
+
+/**
+ * Calc mixin, including fallback
+ */
+@mixin calc($property, $expression, $fallback: "") {
+	#{$property}: unquote($fallback);
+	#{$property}: -moz-calc(#{$expression});
+	#{$property}: -webkit-calc(#{$expression});
+	#{$property}: calc(#{$expression});
+}
+
+/* =========================================================================
+	 Third-party
+	 ========================================================================= */
+
+/**
+ * Extend Bourbon's "prefixer" mixin to make $prefixes an optional argument,
+ * defaulting to all prefixes
+ */
+@mixin prefix($property, $value, $prefixes:"") {
+	@if $prefixes == "" {
+		$prefixes: webkit moz ms o spec;
+	}
+
+	@include prefixer($property, $value, $prefixes); // Bourbon
+}

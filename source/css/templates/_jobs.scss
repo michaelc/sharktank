@@ -1,0 +1,57 @@
+.jobs {
+
+	.openings {
+
+		> :first-child {
+			margin-top: 0;
+		}
+
+		.job-list {
+			@extend %unstyled-list;
+		}
+	}
+}
+
+.about-us,
+.spec {
+	@extend %container;
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium-small) {
+		/**
+		 * See _single.scss for an explanation of the logic behind manually adding a
+		 * max width to reduce the container size
+		 */
+		@include rem(max-width, (10/12)*$container-max-width); // Simulate Neat's span-columns(10)
+	}
+
+	/* ------ BREAKPOINTS ------ */
+	@include screen-gt($medium) {
+		@include rem(max-width, (8/12)*$container-max-width); // Simulate Neat's span-columns(8)
+	}
+}
+
+.about-us {
+	@extend %cf;
+	color: $white;
+	background: $black-light;
+	@include rem(padding-top padding-bottom, 2);
+	@include background-extend(clearfix);
+}
+
+.we-are,
+.we-offer {
+	@extend %col;
+}
+
+.spec-title {
+	margin-top: 0;
+
+	#ruby & {
+		color: $yellow;
+	}
+
+	#front-end & {
+		color: $orange;
+	}
+}

@@ -1,0 +1,91 @@
+/* ==========================================================================
+	 Mixins
+	 ========================================================================== */
+
+@mixin button($font-size: $base-font-size, $color: $primary-color, $display: inline, $padding: .7) {
+
+	@extend %unstyled-link;
+	font-family: $nav-font-family;
+	//position: relative; // Required for "movement" on active state
+	//margin-bottom: 1px; // Required for "movement" on active state
+	text-align: center;
+	text-transform: uppercase;
+	vertical-align: middle;
+	cursor: pointer;
+	white-space: nowrap;
+	line-height: 1;
+	color: $white;
+	// text-shadow: 1px 1px rgba(255, 255, 255, .1), -1px -1px rgba(0, 0, 0, .4);
+	background: $color;
+	// border: 1px solid darken($color, 5%);
+	// box-shadow: inset 0 2px 4px lighten($color, 15%);
+	@include rem(font-size, $font-size);
+	@include rem(letter-spacing, 1px);
+	@include rem(border-radius, 50px);
+	@include rem(padding-left padding-right, 2.25);
+	@include rem(padding-top padding-bottom, $padding);
+	@include prefix(transition, all .3s);
+
+	@if $display == "inline" {
+		display: inline-block;
+		width: auto;
+	}
+
+	@else if $display == "full" {
+		display: block;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		@include rem(margin-top margin-bottom, .3);
+	}
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		background: darken($color, $brightness-adjustment);
+
+		// Override default anchor styles
+		color: $white;
+		border-bottom-color: transparent;
+	}
+
+	&:active {
+		outline: 0;
+		//top: 1px;
+		//left: 1px;
+		//box-shadow: inset 0 0 10px rgba(0, 0, 0, .4);
+		background: $color;
+
+		// Remove transition on click so we can see the active state
+		@include prefix(transition, all 0);
+	}
+
+	&.disabled,
+	&:disabled,
+	&[disabled] {
+		opacity: .5;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+}
+
+/* ==========================================================================
+	 Button styles
+	 ========================================================================== */
+
+button {
+	@include button;
+}
+
+.join-button {
+	@include button(1.5);
+}
+
+.articles-button,
+.apply-button {
+	@include button(1.25);
+}
+
+.apply-button {
+	@include rem(margin-top, 1);
+}
